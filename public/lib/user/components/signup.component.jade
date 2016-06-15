@@ -1,0 +1,15 @@
+//output:signup.component.html
+div.container
+  div.row
+    div.col-sm-6.col-md-4.col-md-offset-4
+      form.form-login(method="post")
+        div.form-group
+          label Email:
+          input.form-control(type="text", [(ngModel)]="useremail")
+        div.form-group
+          label Password:
+          input.form-control(type="password", [(ngModel)]="password")
+        div.form-group
+          label Repeat Password:
+          input.form-control(type="password", [(ngModel)]="passwordRepeat")
+        button.btn.btn-success(type="submit", (click)="signup()") Signup    

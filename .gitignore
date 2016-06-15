@@ -1,0 +1,9 @@
+creds.json
+*.html
+*.css
+.atomignore
+packages
+public/.pub
+public/.packages
+*.yaml
+*.lock

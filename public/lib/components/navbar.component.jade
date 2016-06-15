@@ -1,0 +1,17 @@
+//output:navbar.component.html
+nav.navbar.navbar-default.navbar-static-top 
+  div.container
+    div.navbar-header
+      button.navbar-toggle(type="button", data-toggle="collapse", data-target="#topnav")
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand Sample Tutorials
+    div.collapse.navbar-collapse#topnav
+      ul.nav.navbar-nav.navbar-right
+        li
+          a([routerLink]="['./Login']") Login 
+            span.glyphicon.glyphicon-log-in
+        li
+          a(href="#") Projects
