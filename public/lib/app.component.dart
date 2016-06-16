@@ -5,17 +5,19 @@ import 'user/components/signup.component.dart';
 import "home/home.component.dart";
 import "components/navbar.component.dart";
 import "portfolio/portfolio.component.dart";
+import "portfolio/components/addProject.component.dart";
 
 
 @Component(
   selector: 'st-app',
   templateUrl:'app.component.html',
-  directives: const [ROUTER_DIRECTIVES, NavbarComponent, HomeComponent, LoginComponent, SignupComponent]
+  directives: const [ROUTER_DIRECTIVES, NavbarComponent]
 )
-@RouteConfig(const [const Route(path: '/home', component: HomeComponent),
+@RouteConfig(const [const Route(path: '/', component: HomeComponent, name: "Home"),
                     const Route(path: '/login', component: LoginComponent, name: "Login"),
                     const Route(path: '/signup', component: SignupComponent),
-                    const Route(path: '/projects', component: PortfolioComponent, name: "Portfolio")])
+                    const Route(path: '/addProject', component: AddProjectComponent, name: 'AddProject'),
+                    const Route(path: '/projects/...', component: PortfolioComponent, name: "Portfolio")])
 class AppComponent implements OnInit {
 
   @override

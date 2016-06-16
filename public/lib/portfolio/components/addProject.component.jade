@@ -1,0 +1,15 @@
+//output:addProject.component.html
+div.container
+  div.row
+    div.col-sm-6.col-md-4.col-md-offset-4
+      form.form-addProject(method="post")
+        div.form-group
+          label Title:
+          input.form-control(type="text", [(ngModel)]="title")
+        div.form-group
+          label Description:
+          input.form-control(type="text", [(ngModel)]="description")
+        div.form-group
+          label Content:
+          textarea.form-control#content
+        button.btn.btn-success(type="submit", (click)="add()") Add    

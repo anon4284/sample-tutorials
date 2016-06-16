@@ -21,4 +21,15 @@ class UserService {
      });
   }
 
+  static Map postLoggedIn(String url, Map data) {
+    HttpRequest request = new HttpRequest();
+     request.open("POST", url, async: false);
+     request.setRequestHeader('x-access-userid', window.localStorage["userID"]);
+     request.setRequestHeader('x-access-token', window.localStorage["token"]);
+     var jsonData = JSON.encode(data);
+     request.send(jsonData);
+     Map resp = JSON.decode(request.response.toString());
+     return resp;
+  }
+
 }
