@@ -4,6 +4,7 @@ import 'user/components/login.component.dart';
 import 'user/components/signup.component.dart';
 import "home/home.component.dart";
 import "components/navbar.component.dart";
+import "portfolio/portfolio.component.dart";
 
 
 @Component(
@@ -13,7 +14,8 @@ import "components/navbar.component.dart";
 )
 @RouteConfig(const [const Route(path: '/home', component: HomeComponent),
                     const Route(path: '/login', component: LoginComponent, name: "Login"),
-                    const Route(path: '/signup', component: SignupComponent)])
+                    const Route(path: '/signup', component: SignupComponent),
+                    const Route(path: '/projects', component: PortfolioComponent, name: "Portfolio")])
 class AppComponent implements OnInit {
 
   @override

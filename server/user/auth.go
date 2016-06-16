@@ -3,7 +3,7 @@ package user
 import (
 	"projects/resellbay/server/cfg"
 	"projects/resellbay/server/util"
-	"projects/shir-website/server/pkg/crypt"
+	"projects/sample-tutorials/server/pkg/crypt"
 	"time"
 
 	"github.com/asaskevich/govalidator"

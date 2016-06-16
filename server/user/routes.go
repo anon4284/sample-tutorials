@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"projects/shir-website/server/util"
+	"projects/sample-tutorials/server/util"
 
 	"github.com/gorilla/mux"
 )

@@ -1,9 +1,9 @@
 package main
 
 import (
-	"projects/gobook/server/db"
-	"projects/shir-website/server/routes"
-	"projects/shir-website/server/user"
+	"projects/sample-tutorials/server/db"
+	"projects/sample-tutorials/server/routes"
+	"projects/sample-tutorials/server/user"
 )
 
 func main() {
@@ -13,7 +13,7 @@ func main() {
 	myUser.CreateTable()
 	myUser.LimitAmount(1)
 
-	router := router.New(7016)
+	router := router.New(5000)
 	router.ServeHTMLifNotFound("./public/web/index.html")
 	router.EnableTestRoute()
 
