@@ -7,13 +7,12 @@ div(*ngIf="isPortfolio()")
         h1.page-header My Projects
     
     div.row
-      div(*ngFor="let value of values")
+      div(*ngFor="let project of projects")
         div.col-md-4
-          a([routerLink]="['./Project', {id: value}]")
+          a((click)="goToProject(project.projectID)")
             img.img-responsive(src="http://placehold.it/700x400")
-          h3 Project Title
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.
+          h3 {{project.title}}
+          p {{project.description}}
 
-
-
-router-outlet
+div(*ngIf="!isPortfolio()")
+  portfolio-project

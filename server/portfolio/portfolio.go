@@ -27,3 +27,27 @@ type AddOutput struct {
 	Msg   string
 	Err   string
 }
+
+//GetOutput output of get operation
+type GetOutput struct {
+	Valid bool
+	Msg   string
+	Items []Project
+	Err   string
+}
+
+//GetSingleOutput output of get operation
+type GetSingleOutput struct {
+	Valid bool
+	Msg   string
+	Item  Project
+	Err   string
+}
+
+//Project to define databse Project
+type Project struct {
+	ProjectID   string
+	Title       string
+	Description string
+	Content     string
+}

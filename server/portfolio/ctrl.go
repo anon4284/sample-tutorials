@@ -45,3 +45,62 @@ func (p *Portfolio) Add(input *AddInput, userID string) *AddOutput {
 	return &AddOutput{true, "Project added successfully", ""}
 
 }
+
+//GetByUser finds user by email and returns info
+func (p *Portfolio) GetByUser(userID string) *dynamodb.QueryOutput {
+	params := &dynamodb.QueryInput{
+		TableName:              aws.String(p.DBName),
+		KeyConditionExpression: aws.String("userID = :uID"),
+		ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
+			":uID": {
+				S: aws.String(userID),
+			},
+		},
+	}
+
+	item, err := p.svc.Query(params)
+	util.LogErrOrResp(item, err)
+	return item
+}
+
+func (p *Portfolio) GetByProjectID(projectID string) *GetSingleOutput {
+	params := &dynamodb.QueryInput{
+		TableName:              aws.String(p.DBName),
+		KeyConditionExpression: aws.String("userID = :uID AND projectID = :pID"),
+		ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
+			":uID": {
+				S: aws.String("f6c8bbf9-05b3-4d42-818a-84c5985caea7"),
+			},
+			":pID": {
+				S: aws.String(projectID),
+			},
+		},
+	}
+
+	resp, err := p.svc.Query(params)
+	util.LogErrOrResp(resp, err)
+	if err != nil {
+		return &GetSingleOutput{false, "Failed to get projects due to databse error", Project{}, err.Error()}
+	}
+	return &GetSingleOutput{false, "Retrieved Project successfully", Project{*resp.Items[0]["projectID"].S, *resp.Items[0]["title"].S, *resp.Items[0]["description"].S, *resp.Items[0]["content"].S}, ""}
+}
+
+func (p *Portfolio) Scan() *GetOutput {
+	params := &dynamodb.ScanInput{
+		TableName: aws.String(p.DBName),
+	}
+	resp, err := p.svc.Scan(params)
+	util.LogErrOrResp(resp, err)
+	if err != nil {
+		return &GetOutput{false, "Failed to get projects due to databse error", nil, err.Error()}
+	}
+
+	arr := []Project{}
+
+	for i := 0; i < len(resp.Items); i++ {
+		arr = append(arr, Project{*resp.Items[i]["projectID"].S, *resp.Items[i]["title"].S, *resp.Items[i]["description"].S, *resp.Items[i]["content"].S})
+	}
+
+	return &GetOutput{true, "Successfully got projects", arr, ""}
+
+}

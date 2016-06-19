@@ -17,7 +17,7 @@ import "portfolio/components/addProject.component.dart";
                     const Route(path: '/login', component: LoginComponent, name: "Login"),
                     const Route(path: '/signup', component: SignupComponent),
                     const Route(path: '/addProject', component: AddProjectComponent, name: 'AddProject'),
-                    const Route(path: '/projects/...', component: PortfolioComponent, name: "Portfolio")])
+                    const Route(path: '/projects', component: PortfolioComponent, name: "Portfolio")])
 class AppComponent implements OnInit {
 
   @override

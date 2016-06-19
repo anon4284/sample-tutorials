@@ -4,6 +4,11 @@ div.container
     div.col-sm-6.col-md-4.col-md-offset-4
       form.form-addProject(method="post")
         div.form-group
+          label Thumbnail
+          br
+          label.btn.btn-default.btn-file Browse
+            input#thumbnail(type="file", style="display:none")
+        div.form-group
           label Title:
           input.form-control(type="text", [(ngModel)]="title")
         div.form-group

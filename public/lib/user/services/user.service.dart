@@ -5,6 +5,17 @@ import 'dart:convert';
 
 @Injectable()
 class UserService {
+
+
+  static Map get(String url) {
+    HttpRequest request = new HttpRequest();
+    request.open("GET", url, async: false);
+    request.send();
+    Map resp = JSON.decode(request.response.toString());
+    return resp;
+  }
+
+
   static Map post(String url, Map data) {
     HttpRequest request = new HttpRequest();
     request.open("POST", url, async: false);
@@ -14,11 +25,14 @@ class UserService {
     return resp;
   }
 
-  static void getLoggedIn(String url, Map data) {
-    HttpRequest.request(url, method: "GET", requestHeaders: {
-      'x-access-userid': window.localStorage["userID"],
-      'x-access-token': window.localStorage["token"],
-     });
+  static Map getLoggedIn(String url) {
+    HttpRequest request = new HttpRequest();
+     request.open("GET", url, async: false);
+     request.setRequestHeader('x-access-userid', window.localStorage["userID"]);
+     request.setRequestHeader('x-access-token', window.localStorage["token"]);
+     request.send();
+     Map resp = JSON.decode(request.response.toString());
+     return resp;
   }
 
   static Map postLoggedIn(String url, Map data) {

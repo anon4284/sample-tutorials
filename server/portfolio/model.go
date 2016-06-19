@@ -14,21 +14,21 @@ func (p *Portfolio) CreateTable() *dynamodb.CreateTableOutput {
 		TableName: aws.String(p.DBName),
 		KeySchema: []*dynamodb.KeySchemaElement{
 			{
-				AttributeName: aws.String("projectID"),
+				AttributeName: aws.String("userID"),
 				KeyType:       aws.String("HASH"),
 			},
 			{
-				AttributeName: aws.String("userID"),
+				AttributeName: aws.String("projectID"),
 				KeyType:       aws.String("RANGE"),
 			},
 		},
 		AttributeDefinitions: []*dynamodb.AttributeDefinition{
 			{
-				AttributeName: aws.String("projectID"),
+				AttributeName: aws.String("userID"),
 				AttributeType: aws.String("S"),
 			},
 			{
-				AttributeName: aws.String("userID"),
+				AttributeName: aws.String("projectID"),
 				AttributeType: aws.String("S"),
 			},
 		},
