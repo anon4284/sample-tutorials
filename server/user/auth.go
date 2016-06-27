@@ -1,6 +1,7 @@
 package user
 
 import (
+	"fmt"
 	"projects/resellbay/server/cfg"
 	"projects/resellbay/server/util"
 	"projects/sample-tutorials/server/pkg/crypt"
@@ -42,4 +43,26 @@ func createToken(userID string, input *LoginInput) string {
 	tokenString, err := token.SignedString(cfg.SigningKey)
 	util.CheckErr(err)
 	return tokenString
+}
+
+func verifyToken(myToken string, userID string) bool {
+	token, err := jwt.Parse(myToken, func(token *jwt.Token) (interface{}, error) {
+		// Don't forget to validate the alg is what you expect:
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+		}
+		if token.Claims["userID"] == userID {
+			return cfg.SigningKey, nil
+		}
+
+		return "fail", nil
+
+	})
+	util.CheckErr(err)
+
+	if err == nil && token.Valid {
+		return true
+	}
+	return false
+
 }
