@@ -4,6 +4,9 @@ div.container
     div.col-sm-6.col-md-4.col-md-offset-4
       form.form-login(method="post")
         div.form-group
+          label Username:
+          input.form-control(type="text", [(ngModel)]="username")
+        div.form-group
           label Email:
           input.form-control(type="text", [(ngModel)]="useremail")
         div.form-group

@@ -5,6 +5,10 @@ div.container
       h1.page-header {{project.title}}
   
   div.row
-    h4  {{project.description}}
-    br
-    div#content
+    div.col-lg-12
+      h4  {{project.description}}
+      br
+      div#content
+      
+  my-comments([projectID]="project.projectID")
+    

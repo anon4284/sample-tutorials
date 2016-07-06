@@ -2,10 +2,13 @@ import "package:angular2/core.dart";
 import "../helper/project.dart";
 import "package:sampleTutorials/user/services/user.service.dart";
 import "dart:html";
+import "package:sampleTutorials/comments/comments.component.dart";
 
 @Component(
   selector: 'portfolio-project',
-  templateUrl: 'project.component.html'
+  templateUrl: 'project.component.html',
+  styleUrls: const ['project.component.css'],
+  directives: const [CommentsComponent]
 )
 class ProjectComponent implements OnInit {
   Project project;

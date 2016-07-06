@@ -18,3 +18,31 @@ func New(svc *dynamodb.DynamoDB, dbName string) *User {
 func (u *User) LimitAmount(limit int64) {
 	u.amountLimit = limit
 }
+
+//AddInput input required to add the user
+type AddInput struct {
+	Useremail string
+	Username  string
+	Password  string
+}
+
+//AddOutput output of add operation
+type AddOutput struct {
+	Valid bool
+	Msg   string
+	Err   string
+}
+
+//LoginInput used to login to app
+type LoginInput struct {
+	Useremail string
+	Password  string
+}
+
+//LoginOutput output returned from login
+type LoginOutput struct {
+	Valid  bool
+	Token  string
+	UserID string
+	Msg    string
+}

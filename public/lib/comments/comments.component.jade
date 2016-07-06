@@ -1,0 +1,25 @@
+//output:comments.component.html
+div.row
+  div.col-lg-12
+    h3 Comments
+    
+div.row
+  div.col-lg-12
+    form
+      div.input-group
+        input.form-control([(ngModel)]="content")
+        btn.input-group-addon.btn.btn-success(type="submit", (click)="addComment()") Add Comment
+          
+div(*ngFor="let comment of comments")
+  div.row
+    div.col-sm-1
+      div.thumbnail
+        img.img-responsive.user-photo(src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png")
+
+    div.col-sm-5
+      div.panel.panel-default
+        div.panel-heading
+          strong {{comment.username}}
+          span.text-muted commented at {{comment.createdAt}}
+        div.panel-body {{comment.content}}
+    

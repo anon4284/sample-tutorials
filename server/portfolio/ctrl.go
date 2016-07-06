@@ -11,8 +11,14 @@ import (
 
 //Add portfolio item
 func (p *Portfolio) Add(input *AddInput, userID string) *AddOutput {
-	projectID := uuid.NewV4().String()
 
+	o := validateAdd(input)
+
+	if !o.Valid {
+		return o
+	}
+
+	projectID := uuid.NewV4().String()
 	params := &dynamodb.PutItemInput{
 		TableName: aws.String(p.DBName),
 		Item: map[string]*dynamodb.AttributeValue{
@@ -50,6 +56,7 @@ func (p *Portfolio) Add(input *AddInput, userID string) *AddOutput {
 func (p *Portfolio) GetByUser(userID string) *dynamodb.QueryOutput {
 	params := &dynamodb.QueryInput{
 		TableName:              aws.String(p.DBName),
+		IndexName:              aws.String("userID-index"),
 		KeyConditionExpression: aws.String("userID = :uID"),
 		ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
 			":uID": {
@@ -66,11 +73,8 @@ func (p *Portfolio) GetByUser(userID string) *dynamodb.QueryOutput {
 func (p *Portfolio) GetByProjectID(projectID string) *GetSingleOutput {
 	params := &dynamodb.QueryInput{
 		TableName:              aws.String(p.DBName),
-		KeyConditionExpression: aws.String("userID = :uID AND projectID = :pID"),
+		KeyConditionExpression: aws.String("projectID = :pID"),
 		ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
-			":uID": {
-				S: aws.String("f6c8bbf9-05b3-4d42-818a-84c5985caea7"),
-			},
 			":pID": {
 				S: aws.String(projectID),
 			},
@@ -82,7 +86,7 @@ func (p *Portfolio) GetByProjectID(projectID string) *GetSingleOutput {
 	if err != nil {
 		return &GetSingleOutput{false, "Failed to get projects due to databse error", Project{}, err.Error()}
 	}
-	return &GetSingleOutput{false, "Retrieved Project successfully", Project{*resp.Items[0]["projectID"].S, *resp.Items[0]["title"].S, *resp.Items[0]["description"].S, *resp.Items[0]["content"].S}, ""}
+	return &GetSingleOutput{true, "Retrieved Project successfully", Project{*resp.Items[0]["projectID"].S, *resp.Items[0]["title"].S, *resp.Items[0]["description"].S, *resp.Items[0]["content"].S}, ""}
 }
 
 func (p *Portfolio) Scan() *GetOutput {

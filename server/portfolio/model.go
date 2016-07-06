@@ -14,27 +14,63 @@ func (p *Portfolio) CreateTable() *dynamodb.CreateTableOutput {
 		TableName: aws.String(p.DBName),
 		KeySchema: []*dynamodb.KeySchemaElement{
 			{
-				AttributeName: aws.String("userID"),
+				AttributeName: aws.String("projectID"),
 				KeyType:       aws.String("HASH"),
 			},
 			{
-				AttributeName: aws.String("projectID"),
+				AttributeName: aws.String("createdAt"),
 				KeyType:       aws.String("RANGE"),
 			},
 		},
 		AttributeDefinitions: []*dynamodb.AttributeDefinition{
 			{
+				AttributeName: aws.String("projectID"),
+				AttributeType: aws.String("S"),
+			},
+			{
 				AttributeName: aws.String("userID"),
 				AttributeType: aws.String("S"),
 			},
 			{
-				AttributeName: aws.String("projectID"),
+				AttributeName: aws.String("createdAt"),
 				AttributeType: aws.String("S"),
 			},
 		},
 		ProvisionedThroughput: &dynamodb.ProvisionedThroughput{
 			ReadCapacityUnits:  aws.Int64(1),
 			WriteCapacityUnits: aws.Int64(1),
+		},
+		GlobalSecondaryIndexes: []*dynamodb.GlobalSecondaryIndex{
+			{
+				IndexName: aws.String("userID-index"),
+				KeySchema: []*dynamodb.KeySchemaElement{
+					{
+						AttributeName: aws.String("userID"),
+						KeyType:       aws.String("HASH"),
+					},
+					{
+						AttributeName: aws.String("createdAt"),
+						KeyType:       aws.String("RANGE"),
+					},
+				},
+				Projection: &dynamodb.Projection{
+					NonKeyAttributes: []*string{
+						aws.String("projectID"),
+						aws.String("createdAt"),
+						aws.String("title"),
+						aws.String("description"),
+						aws.String("views"),
+						aws.String("likes"),
+						aws.String("dislikes"),
+					},
+					ProjectionType: aws.String("INCLUDE"),
+				},
+				ProvisionedThroughput: &dynamodb.ProvisionedThroughput{ // Required
+					ReadCapacityUnits:  aws.Int64(1), // Required
+					WriteCapacityUnits: aws.Int64(1), // Required
+				},
+			},
+			// More values...
 		},
 	}
 

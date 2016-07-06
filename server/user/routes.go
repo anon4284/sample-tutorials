@@ -3,17 +3,35 @@ package user
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"projects/sample-tutorials/server/util"
 
 	"github.com/gorilla/mux"
 )
 
-func VerifyToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+//RequireToken enables required Token verification on device
+func (u *User) RequireToken(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	if verifyToken(r.Header.Get("x-access-token"), r.Header.Get("x-access-userid")) {
+		log.Println("called")
 		next(w, r)
 	} else {
-		b, _ := json.Marshal(AddOutput{false, "Not authorized to perform this action", ""})
+		b, _ := json.Marshal(AddOutput{false, "Must login to perform this action", ""})
+		w.Write(b)
+	}
+}
+
+//RequireAdmin routes after calling this will require an admin account
+func (u *User) RequireAdmin(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+	if verifyToken(r.Header.Get("x-access-token"), r.Header.Get("x-access-userid")) {
+		if u.isAdmin(r.Header.Get("x-access-userid")) {
+			next(w, r)
+		} else {
+			b, _ := json.Marshal(AddOutput{false, "Must be admin to perform this action", ""})
+			w.Write(b)
+		}
+	} else {
+		b, _ := json.Marshal(AddOutput{false, "Must be logged in to perform this action", ""})
 		w.Write(b)
 	}
 }

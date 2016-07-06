@@ -8,6 +8,7 @@ import '../services/flashMsg.service.dart';
 )
 class SignupComponent {
   String useremail;
+  String username;
   String password;
   String passwordRepeat;
 
@@ -15,6 +16,7 @@ class SignupComponent {
     if(password == passwordRepeat) {
       var data = new Map<String,String>();
       data["Useremail"] = useremail;
+      data["Username"] = useremail;
       data["Password"] = password;
       var resp = UserService.post("/api/user/signup",data);
       FlashMsgService.msg(resp);

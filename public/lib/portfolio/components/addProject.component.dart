@@ -19,7 +19,7 @@ class AddProjectComponent implements OnInit {
     map["Description"] = description;
     map["Content"] = ck.getData();
     uploadImage();
-    var resp = UserService.postLoggedIn('/api/projects/add', map);
+    var resp = UserService.postLoggedIn('/api/admin/projects/add', map);
     FlashMsgService.msg(resp);
   }
 

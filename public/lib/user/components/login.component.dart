@@ -8,8 +8,8 @@ import "../services/flashMsg.service.dart";
   templateUrl: 'login.component.html'
 )
 class LoginComponent {
-  String useremail;
-  String password;
+  String useremail = "schnake@gmail.com";
+  String password = "Katzenschnaken";
 
   void login() {
     var data = new Map<String,String>();

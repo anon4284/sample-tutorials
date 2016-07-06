@@ -6,6 +6,17 @@ import 'dart:convert';
 @Injectable()
 class UserService {
 
+  static void logOut() {
+    window.localStorage.remove("token");
+    window.localStorage.remove("userID");
+  }
+
+
+  static bool isLoggedIn() {
+    return window.localStorage.containsKey("token") &&
+    window.localStorage.containsKey("userID");
+  }
+
 
   static Map get(String url) {
     HttpRequest request = new HttpRequest();

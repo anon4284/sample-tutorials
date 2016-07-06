@@ -23,7 +23,9 @@ func New(port int) *Router {
 //ServeHTMLifNotFound serves html file if no other route was specified by the frontend
 func (r *Router) ServeHTMLifNotFound(path string) {
 	r.Router.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, path)
+		if r.Method == "GET" {
+			http.ServeFile(w, r, path)
+		}
 	})
 }
 
@@ -35,8 +37,12 @@ func (r *Router) EnableTestRoute() {
 }
 
 //AddRouter adds another router to the server
-func (r *Router) AddRouter(router *mux.Router) {
-	r.Server.UseHandler(router)
+func (r *Router) AddRouter(router *mux.Router, prefix string, middleware negroni.HandlerFunc) {
+	router.NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	})
+	r.Router.PathPrefix(prefix).Handler(negroni.New(
+		negroni.HandlerFunc(middleware), negroni.Wrap(router)))
+
 }
 
 //Start assignes handler to Server and starts the server

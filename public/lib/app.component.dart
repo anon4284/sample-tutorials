@@ -20,8 +20,9 @@ import "portfolio/components/addProject.component.dart";
                     const Route(path: '/projects', component: PortfolioComponent, name: "Portfolio")])
 class AppComponent implements OnInit {
 
+
   @override
   ngOnInit() {
-    // TODO: implement ngOnInit
+
   }
 }

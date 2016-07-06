@@ -1,0 +1,34 @@
+//out: comments.component.css
+.thumbail
+  padding: 0px
+
+.panel-body
+  word-wrap: break-word; !important
+
+.panel
+  position:relative
+  strong:after
+    content: "\00a0"
+
+.panel-heading:after, .panel-heading:before
+  position: relative
+  top: 11px
+  left: -16px
+  right: 100%
+  width: 0
+  height: 0
+  display: block
+  content: "\00a0"
+  border-color: transparent
+  border-style: solid solid outset
+  pointer-events: none
+
+.panel-heading:after
+  border-width:7px
+  border-right-color:#f7f7f7
+  margin-top:1px
+  margin-left:2px
+
+.panel-heading:before
+  border-right-color:#ddd;
+  border-width:8px;

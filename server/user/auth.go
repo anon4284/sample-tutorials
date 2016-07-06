@@ -22,13 +22,22 @@ func (u *User) Login(input *LoginInput) *LoginOutput {
 }
 
 func signupValid(input *AddInput) *AddOutput {
-	if govalidator.IsEmail(input.Useremail) {
-		if len(input.Password) > 8 {
-			return &AddOutput{true, "", ""}
-		}
-		return &AddOutput{false, "Password invalid", "Password"}
+	if !govalidator.IsEmail(input.Useremail) {
+		return &AddOutput{false, "Email Invalid", "Email"}
 	}
-	return &AddOutput{false, "Email Invalid", "Email"}
+	if !(len(input.Password) > 8) {
+		return &AddOutput{false, "Password must be 8 characters or more", "Password"}
+	}
+	return &AddOutput{true, "", ""}
+}
+
+func (u *User) isAdmin(userID string) bool {
+	user := u.Get(userID)
+	role := *user.Item["role"].S
+	if role == "admin" {
+		return true
+	}
+	return false
 }
 
 func createToken(userID string, input *LoginInput) string {

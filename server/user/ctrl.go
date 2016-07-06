@@ -24,6 +24,12 @@ func (u *User) Add(input *AddInput) *AddOutput {
 			"useremail": &dynamodb.AttributeValue{
 				S: aws.String(input.Useremail),
 			},
+			"username": &dynamodb.AttributeValue{
+				S: aws.String(input.Username),
+			},
+			"profilePicture": &dynamodb.AttributeValue{
+				S: aws.String("https://ssl.gstatic.com/accounts/ui/avatar_2x.png"),
+			},
 			"password": &dynamodb.AttributeValue{
 				S: aws.String(password),
 			},
