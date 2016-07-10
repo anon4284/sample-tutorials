@@ -1,0 +1,28 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-md-4 col-md-offset-4">
+      <form method="post" class="form-addProject">
+        <div class="form-group">
+          <label>Thumbnail</label><br/>
+          <label class="btn btn-default btn-file">Browse
+            <input id="thumbnail" type="file" style="display:none"/>
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Title:</label>
+          <input type="text" [(ngModel)]="title" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label>Description:</label>
+          <input type="text" [(ngModel)]="description" class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label>Content:</label>
+          <textarea id="content" class="form-control"></textarea>
+        </div>
+        <button type="submit" (click)="add()" class="btn btn-success">Add    </button>
+      </form>
+    </div>
+  </div>
+</div>

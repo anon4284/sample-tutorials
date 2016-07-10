@@ -1,0 +1,4 @@
+.list-group-item img,
+.list-group-item h4 {
+  display: inline-block;
+}

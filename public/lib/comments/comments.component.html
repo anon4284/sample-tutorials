@@ -1,0 +1,29 @@
+
+<div class="row">
+  <div class="col-lg-12">
+    <h3>Comments</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <form>
+      <div class="input-group">
+        <input [(ngModel)]="content" class="form-control"/>
+        <btn type="submit" (click)="addComment()" class="input-group-addon btn btn-success">Add Comment</btn>
+      </div>
+    </form>
+  </div>
+</div>
+<div *ngFor="let comment of comments">
+  <div class="row">
+    <div class="col-sm-1">
+      <div class="thumbnail"><img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="img-responsive user-photo"/></div>
+    </div>
+    <div class="col-sm-5">
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong>{{comment.username}}</strong><span class="text-muted">commented at {{comment.createdAt}}</span></div>
+        <div class="panel-body">{{comment.content}}</div>
+      </div>
+    </div>
+  </div>
+</div>

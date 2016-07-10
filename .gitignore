@@ -1,6 +1,4 @@
 creds.json
-*.html
-*.css
 .atomignore
 packages
 public/.pub

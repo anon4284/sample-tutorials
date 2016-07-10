@@ -1,0 +1,15 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">{{project.title}}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <h4> {{project.description}}</h4><br/>
+      <div id="content"></div>
+    </div>
+  </div>
+  <my-comments [projectID]="project.projectID"></my-comments>
+</div>

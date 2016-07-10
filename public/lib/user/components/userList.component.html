@@ -1,0 +1,15 @@
+
+<div class="container">
+  <div class="row">
+    <ul *ngFor="let user of users" class="list-group">
+      <li class="list-group-item"> <img src="{{user.profilePicture}}" width="50" height="50" class="img-responsive"/>
+        <h4>{{user.username}}</h4>
+        <div role="group" class="btn-group pull-right">
+          <button type="button" class="btn btn-secondary btn-info">Chat</button>
+          <button type="button" class="btn btn-secondary btn-success">View</button>
+          <button *ngIf="isAdmin" type="button" (click)="delete(user.userID)" class="btn btn-secondary btn-danger">Delete</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
