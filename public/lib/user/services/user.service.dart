@@ -9,8 +9,12 @@ class UserService {
   static void logOut() {
     window.localStorage.remove("token");
     window.localStorage.remove("userID");
+    window.localStorage.remove("isAdmin");
   }
 
+  static bool isAdmin() {
+    return window.localStorage["isAdmin"] == "true";
+  }
 
   static bool isLoggedIn() {
     return window.localStorage.containsKey("token") &&

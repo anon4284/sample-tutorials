@@ -16,9 +16,10 @@ class SignupComponent {
     if(password == passwordRepeat) {
       var data = new Map<String,String>();
       data["Useremail"] = useremail;
-      data["Username"] = useremail;
+      data["Username"] = username;
       data["Password"] = password;
-      var resp = UserService.post("/api/user/signup",data);
+      data["PasswordRepeat"] = passwordRepeat;
+      var resp = UserService.post("/api/signup",data);
       FlashMsgService.msg(resp);
       print(resp);
     } else {

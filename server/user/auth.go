@@ -16,19 +16,48 @@ func (u *User) Login(input *LoginInput) *LoginOutput {
 	item := u.GetByEmail(input.Useremail)
 	if *item.Count > 0 && crypt.ComparePasswords(input.Password, *item.Items[0]["password"].S) {
 		token := createToken(*item.Items[0]["userID"].S, input)
-		return &LoginOutput{true, token, *item.Items[0]["userID"].S, "Login successful"}
+		if u.isAdmin(*item.Items[0]["userID"].S) {
+			return &LoginOutput{true, true, token, *item.Items[0]["userID"].S, "Login successful"}
+		}
+		return &LoginOutput{true, false, token, *item.Items[0]["userID"].S, "Login successful"}
 	}
 	return &LoginOutput{Valid: false, Msg: "Login failed: Wrong Email or Password"}
 }
 
-func signupValid(input *AddInput) *AddOutput {
+func signupValid(input *AddInput) *Output {
 	if !govalidator.IsEmail(input.Useremail) {
-		return &AddOutput{false, "Email Invalid", "Email"}
+		return &Output{false, "Email Invalid", "Email"}
 	}
-	if !(len(input.Password) > 8) {
-		return &AddOutput{false, "Password must be 8 characters or more", "Password"}
+	if !passwordValid(input.Password) {
+		return &Output{false, "Password must be 8 characters or more", "Password"}
 	}
-	return &AddOutput{true, "", ""}
+
+	if !(input.Password == input.PasswordRepeat) {
+		return &Output{false, "Passwords don't match", "Password"}
+	}
+
+	return &Output{true, "", ""}
+}
+
+func passwordValid(password string) bool {
+	if len(password) >= 8 {
+		return true
+	}
+	return false
+}
+
+func (u *User) changePasswordValid(input ChangePasswordInput, userID string) *Output {
+	if !(passwordValid(input.New) && passwordValid(input.Old)) {
+		return &Output{false, "Please Provide all Passwords", ""}
+	}
+	if !(input.New == input.NewRepeat) {
+		return &Output{false, "Password's dont match", ""}
+	}
+	user := u.Get(userID)
+	if !crypt.ComparePasswords(input.Old, *user.Item["password"].S) {
+		return &Output{false, "Old Password invalid", "Old"}
+	}
+	return u.ChangePassword(userID, input.New)
 }
 
 func (u *User) isAdmin(userID string) bool {

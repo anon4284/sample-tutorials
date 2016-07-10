@@ -84,14 +84,19 @@ func (p *Portfolio) GetByProjectID(projectID string) *GetSingleOutput {
 	resp, err := p.svc.Query(params)
 	util.LogErrOrResp(resp, err)
 	if err != nil {
-		return &GetSingleOutput{false, "Failed to get projects due to databse error", Project{}, err.Error()}
+		return &GetSingleOutput{false, "Failed to get projects due to databse error", ProjectSingle{}, err.Error()}
 	}
-	return &GetSingleOutput{true, "Retrieved Project successfully", Project{*resp.Items[0]["projectID"].S, *resp.Items[0]["title"].S, *resp.Items[0]["description"].S, *resp.Items[0]["content"].S}, ""}
+	return &GetSingleOutput{true, "Retrieved Project successfully", ProjectSingle{*resp.Items[0]["projectID"].S, *resp.Items[0]["title"].S, *resp.Items[0]["description"].S, *resp.Items[0]["content"].S}, ""}
 }
 
 func (p *Portfolio) Scan() *GetOutput {
 	params := &dynamodb.ScanInput{
 		TableName: aws.String(p.DBName),
+		AttributesToGet: []*string{
+			aws.String("projectID"),
+			aws.String("title"),
+			aws.String("description"),
+		},
 	}
 	resp, err := p.svc.Scan(params)
 	util.LogErrOrResp(resp, err)
@@ -102,7 +107,7 @@ func (p *Portfolio) Scan() *GetOutput {
 	arr := []Project{}
 
 	for i := 0; i < len(resp.Items); i++ {
-		arr = append(arr, Project{*resp.Items[i]["projectID"].S, *resp.Items[i]["title"].S, *resp.Items[i]["description"].S, *resp.Items[i]["content"].S})
+		arr = append(arr, Project{*resp.Items[i]["projectID"].S, *resp.Items[i]["title"].S, *resp.Items[i]["description"].S})
 	}
 
 	return &GetOutput{true, "Successfully got projects", arr, ""}

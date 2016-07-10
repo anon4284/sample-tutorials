@@ -40,12 +40,19 @@ type GetOutput struct {
 type GetSingleOutput struct {
 	Valid bool
 	Msg   string
-	Item  Project
+	Item  ProjectSingle
 	Err   string
 }
 
 //Project to define databse Project
 type Project struct {
+	ProjectID   string
+	Title       string
+	Description string
+}
+
+//ProjectSingle like project but with content
+type ProjectSingle struct {
 	ProjectID   string
 	Title       string
 	Description string

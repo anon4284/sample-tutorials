@@ -9,13 +9,15 @@ import '../user/services/user.service.dart';
   directives: const [RouterLink]
 )
 class NavbarComponent {
+  @Input()
+  bool isLoggedIn;
+
+
   Router router;
 
   NavbarComponent(Router router) {
     this.router = router;
   }
-
-  bool isLoggedIn = UserService.isLoggedIn();
 
   void logOut() {
     UserService.logOut();

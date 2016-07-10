@@ -9,14 +9,23 @@ nav.navbar.navbar-default.navbar-static-top
         span.icon-bar
       a.navbar-brand([routerLink]="['./Home']") Sample Tutorials
     div.collapse.navbar-collapse#topnav
-      ul.nav.navbar-nav.navbar-right()
+      ul.nav.navbar-nav.navbar-right
         li(*ngIf="!isLoggedIn")
           a([routerLink]="['./Login']") Login 
             span.glyphicon.glyphicon-log-in
+        li(*ngIf="!isLoggedIn")
+          a([routerLink]="['./Signup']") Signup 
+            span.glyphicon.glyphicon-user
         li(*ngIf="isLoggedIn", (click)="logOut()")
           a([routerLink]="['./Home']") Logout
             span.glyphicon.glyphicon-log-out
-        li
-          a([routerLink]="['./Portfolio']") Projects
+        li(*ngIf="isLoggedIn")
+          a([routerLink]="['./Profile']") Profile
+            span.glyphicon.glyphicon-user
+        li(*ngIf="isLoggedIn")
+          a([routerLink]="['./Users']") Users
         li(*ngIf="isLoggedIn")
           a([routerLink]="['./AddProject']") Add Project
+        li
+          a([routerLink]="['./Portfolio']") Projects
+            span.glyphicon.glyphicon-th
