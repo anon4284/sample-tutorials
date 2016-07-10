@@ -62,8 +62,7 @@ func (u *User) changePasswordValid(input ChangePasswordInput, userID string) *Ou
 
 func (u *User) isAdmin(userID string) bool {
 	user := u.Get(userID)
-	role := *user.Item["role"].S
-	if role == "admin" {
+	if user.Item["role"] != nil && *user.Item["role"].S == "admin" {
 		return true
 	}
 	return false
