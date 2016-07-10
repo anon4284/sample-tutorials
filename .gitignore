@@ -7,3 +7,4 @@ public/.pub
 public/.packages
 *.yaml
 *.lock
+ca-certificates.crt

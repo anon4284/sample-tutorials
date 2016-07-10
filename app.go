@@ -19,7 +19,7 @@ func main() {
 
 	router := router.New(5000)
 
-	router.ServeHTMLifNotFound("./public/web/index.html")
+	router.ServeHTMLifNotFound("./public/build/web/index.html")
 	myUser.EnableLogin(router.Router, "/api/login")
 	myUser.EnableSignup(router.Router, "/api/signup")
 	myPortfolio.EnableRouteGetAll(router.Router, "/api/projects/get")
