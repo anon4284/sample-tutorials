@@ -2,8 +2,6 @@
 
 This Project is in early development Stages and currently supports user registration, project creation and simple user comments.
 
-## Live Demo
-http://goadstack.com:7018/
 
 ## Upcoming Features
 
